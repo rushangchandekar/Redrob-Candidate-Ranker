@@ -29,50 +29,11 @@ To satisfy the **5-minute ranking constraint** without sacrificing accuracy, the
 4. **Behavioral Twin Deduplication:** Pairs candidate embeddings and filters out duplicate profiles (similarity threshold > 0.98), keeping the higher-scored twin.
 5. **Reasoning & shortlisting:** Automatically drafts natural, factual recruiter rationales for the top 100 shortlist candidates.
 
-```
-                  PHASE 1: OFFLINE PRE-COMPUTATION
-                  
-  job_description.md ──► [JD Analyzer] ──► jd_profile.json
-                                               │
-                                               ▼
-                                         [Embedder] ──► jd_embeddings.pkl
-                                         
-  candidates.jsonl   ──► [Preprocessor] ──► features.parquet
-                                               │
-                                               ▼
-                                         [Embedder] ──► candidate_embeddings.npy
-                                               │
-                                               ▼
-                                         [FAISS Index] ──► faiss.index
-                                         
-                  PHASE 2: LIVE RANKING & SHORTLIST
-                  
-  faiss.index + features.parquet + embeddings.npy
-        │
-        ▼
-  [FAISS Search] ──► Top-1000 Candidate Shortlist
-        │
-        ▼
-  [5D Scorer] ──► D1: Semantic Match (25%)
-              ──► D2: Career Progression (25%)
-              ──► D3: Skill Depth (20%)
-              ──► D4: Behavioral Signals (20%)
-              ──► D5: Platform Activity (10%)
-        │
-        ▼
-  [Trap Detector] ──► Honeypots (impossible timeline, signal violations)
-                  ──► Keyword Stuffers (shallow descriptions)
-                  ──► Service Companies (consulting-only)
-        │
-        ▼
-  [Deduplicator] ──► Pairwise Cosine Twin Removal (> 0.98 Similarity)
-        │
-        ▼
-  [Reasoning Gen] ──► 1-2 Sentence Recruiter Rationales
-        │
-        ▼
-  submission.csv  +  Streamlit Dashboard App
-```
+### Phase 1: Pre-Computation (Offline) Flow
+![Phase 1 Offline Pre-Computation Flowchart](docs/images/phase1_precomputation.png)
+
+### Phase 2: Live Search & Scoring (Online) Flow
+![Phase 2 Live Search & Scoring Flowchart](docs/images/phase2_live_ranking.png)
 
 ---
 

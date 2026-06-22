@@ -1,0 +1,16 @@
+pandas>=2.0
+numpy
+tqdm
+jsonschema
+python-dateutil
+pyarrow
+sentence-transformers
+faiss-cpu
+torch
+scikit-learn
+scipy
+streamlit
+plotly
+pyyaml
+python-docx
+torchvision

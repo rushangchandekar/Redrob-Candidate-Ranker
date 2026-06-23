@@ -31,10 +31,10 @@ from src.jd.analyzer import analyze_jd, save_jd_profile
 from src.embeddings.embedder import embed_jd_profile, embed_texts
 from src.embeddings.faiss_index import build_faiss_index
 
-def run_pipeline(is_sample: bool = True):
+def run_pipeline(is_sample: bool = True, custom_candidates_path: str = None):
     start_time = time.time()
     print("=" * 60)
-    print(f"STARTING REDROB PHASE 1 PIPELINE ({'SAMPLE' if is_sample else 'FULL'} MODE)")
+    print("STARTING REDROB PHASE 1 PIPELINE")
     print("=" * 60)
     
     # 1. Setup paths
@@ -63,7 +63,15 @@ def run_pipeline(is_sample: bool = True):
     
     # 3. Load Candidates
     print("\n--- Step 2: Loading Candidates ---")
-    if is_sample:
+    if custom_candidates_path:
+        if custom_candidates_path.lower().endswith(".json"):
+            candidates = load_sample_candidates(custom_candidates_path)
+        else:
+            candidates = []
+            for cand in tqdm(stream_candidates(custom_candidates_path), desc="Ingesting profiles"):
+                candidates.append(cand)
+        print(f"Loaded {len(candidates)} candidates from {custom_candidates_path}")
+    elif is_sample:
         sample_file = os.path.join(base_dir, "sample_candidates.json")
         candidates = load_sample_candidates(sample_file)
         print(f"Loaded {len(candidates)} candidates from {sample_file}")

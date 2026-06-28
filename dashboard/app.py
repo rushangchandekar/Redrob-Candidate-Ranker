@@ -271,10 +271,10 @@ if page == "📊 Overview":
             top_skills = s_series.head(10)
             
             fig_skills = px.bar(
-                x=top_skills.values,
-                y=top_skills.index,
+                x=list(top_skills.values),
+                y=list(top_skills.index),
                 orientation='h',
-                color=top_skills.values,
+                color=list(top_skills.values),
                 color_continuous_scale="Purples",
                 labels={"x": "Count", "y": "Skill"}
             )

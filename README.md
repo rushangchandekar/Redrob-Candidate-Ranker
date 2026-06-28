@@ -178,7 +178,12 @@ python -m streamlit run dashboard/app.py
 ```
 **Dashboard Highlights:**
 * **Overview Page:** Visualizes score distributions, total candidates, and skill distributions.
+  ![Overview Page](docs/images/dashboard_overview.png)
 * **Top candidates:** Explore the ranked shortlist in a sortable, paginated grid.
+  ![Top Candidates](docs/images/dashboard_top_candidates.png)
 * **Inspect Candidate:** Drill down into any candidate to view a 5D radar chart, progressive career timelines, and endorsements.
+  ![Inspect Candidate](docs/images/dashboard_deep_dive.png)
 * **ATS Blindspot Detector:** Specifically highlights profiles with high match scores but low keyword matching, proving the strength of semantic search over traditional keyword matching.
+  ![ATS Blindspot Detector](docs/images/dashboard_blindspot.png)
 * **Sandbox Runner:** Upload a custom JSON list of candidates and run the pipeline dynamically from the UI.
+  ![Sandbox Runner](docs/images/dashboard_sandbox.png)
